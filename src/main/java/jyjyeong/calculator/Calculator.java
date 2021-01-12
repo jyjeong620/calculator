@@ -13,6 +13,6 @@ public class Calculator {
         String input = scan.nextLine();
         System.out.println("입력 값 : " + input);
         Calculation calculation = new Calculation(input);
-        System.out.println("결과 값 : " );
+        System.out.println("결과 값 : " + calculation.calculate());
     }
 }

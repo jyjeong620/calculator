@@ -15,9 +15,11 @@ class CalculationTest {
 
         System.out.println("출력 : ");
         for(String data : inputs){
-            System.out.print(data + " ");
+            System.out.println(data + " ");
         }
         System.out.println();
 
     }
+
+
 }
