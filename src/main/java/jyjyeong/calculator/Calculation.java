@@ -32,23 +32,27 @@ public class Calculation {
         }
 
         for(int i = 1; i < input.toArray().length; i++) {
-            cal(input.get(i));
+            Distribution(input.get(i), i);
         }
         return this.total;
     }
 
-    private void cal(String data){
-        if(data == null || data.equals(" ")){
-            throw new IllegalArgumentException("입력 값이 null 이거나 빈 공백 문자입니다");
-        }
-        if(isNumberData(data)) {
+    /**
+     * 문자 숫자 분리하여 처리하는 함수
+     */
+    private void Distribution(String data, int location){
+
+        if(location%2 == 0 && isNumberData(data)) {
             System.out.println("숫자입니다!!!1");
             calculatorTotal(convertNumber(data));
+            return;
         }
-        if(isOperator(data)) {
+        if(location%2 == 1 && isOperator(data)) {
             System.out.println("문자입니다!!!!");
             saveOperator(data);
+            return;
         }
+        throw new IllegalArgumentException("입력 값이 null 이거나 빈 공백 문자입니다");
     }
 
     /**
