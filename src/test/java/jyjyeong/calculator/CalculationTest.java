@@ -1,6 +1,8 @@
 package jyjyeong.calculator;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -18,6 +20,12 @@ class CalculationTest {
             System.out.println(data + " ");
         }
         System.out.println();
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "  "})
+    void afads(){
 
     }
 
