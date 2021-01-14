@@ -15,7 +15,9 @@ public class Calculation {
     private final String DIV = "/";
 
     private int total = 0;
-    private static String nowOperator = "";
+    private String nowOperator = "";
+    private static final int NUMBER = 0;
+    private static final int OPERATOR = 1;
 
     public Calculation(String input) {
         this.input = splitInput(input);
@@ -23,16 +25,15 @@ public class Calculation {
 
     /**
      * 계산하는 함수
-     * @return
      */
     public int calculate() {
 
-        if(isNumberData(input.get(0))) {
+        if(isNumberFormat(input.get(0))) {
             this.total = convertNumber(input.get(0));
         }
 
         for(int i = 1; i < input.toArray().length; i++) {
-            distribution(input.get(i), i);
+            distribute(input.get(i), i);
         }
         return this.total;
     }
@@ -40,13 +41,13 @@ public class Calculation {
     /**
      * 문자 숫자 분리하여 처리하는 함수
      */
-    private void distribution(String data, int location){
+    private void distribute(String data, int location) {
 
-        if(location%2 == 0 && isNumberData(data)) {
+        if(isNumberData(data, location)) {
             calculatorTotal(convertNumber(data));
             return;
         }
-        if(location%2 == 1 && isOperator(data)) {
+        if(isOperatorData(data, location)) {
             saveOperator(data);
             return;
         }
@@ -54,9 +55,23 @@ public class Calculation {
     }
 
     /**
+     * 지정된 위치의 데이터가 연산자인지 확인
+     */
+    private boolean isOperatorData(String data, int location) {
+        return location % 2 == OPERATOR && isOperator(data);
+    }
+
+    /**
+     * 지정된 위치의 데이터가 숫자인지 확인
+     */
+    private boolean isNumberData(String data, int location) {
+        return location % 2 == NUMBER && isNumberFormat(data);
+    }
+
+    /**
      * 숫자인지 확인 하는 메소드
      */
-    private boolean isNumberData(String number) {
+    private boolean isNumberFormat(String number) {
         try {
             Integer.parseInt(number);
             return true;
@@ -80,20 +95,7 @@ public class Calculation {
      * 입력된 연산자가 유효한지 확인
      */
     private boolean isOperator(String operator) {
-        boolean isOperator = false;
-        if(ADD.equals(operator)){
-            isOperator = true;
-        }
-        if(SUB.equals(operator)){
-            isOperator = true;
-        }
-        if(MUL.equals(operator)){
-            isOperator = true;
-        }
-        if(DIV.equals(operator)){
-            isOperator = true;
-        }
-        return isOperator;
+        return Operator.valueOfOperator(operator) != null;
     }
 
     /**
@@ -110,8 +112,6 @@ public class Calculation {
         this.total = Operator.valueOfOperator(this.nowOperator).calculate(this.total, num);
     }
 
-
-
     /**
      * input 데이터를 공백으로 나눠 List 에 담는다
      */
@@ -126,5 +126,4 @@ public class Calculation {
          */
         return inputs;
     }
-
 }
