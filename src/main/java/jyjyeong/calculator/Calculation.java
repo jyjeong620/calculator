@@ -32,7 +32,7 @@ public class Calculation {
         }
 
         for(int i = 1; i < input.toArray().length; i++) {
-            Distribution(input.get(i), i);
+            distribution(input.get(i), i);
         }
         return this.total;
     }
@@ -40,15 +40,13 @@ public class Calculation {
     /**
      * 문자 숫자 분리하여 처리하는 함수
      */
-    private void Distribution(String data, int location){
+    private void distribution(String data, int location){
 
         if(location%2 == 0 && isNumberData(data)) {
-            System.out.println("숫자입니다!!!1");
             calculatorTotal(convertNumber(data));
             return;
         }
         if(location%2 == 1 && isOperator(data)) {
-            System.out.println("문자입니다!!!!");
             saveOperator(data);
             return;
         }
@@ -102,14 +100,14 @@ public class Calculation {
      * 입력된 값을 현재 연산지로 지정한다
      */
     private void saveOperator(String operator) {
-        nowOperator = operator;
+        this.nowOperator = operator;
     }
 
     /**
      * 값을 받아와 최종 값에 추가해준다
      */
     private void calculatorTotal(int num) {
-        total = Operator.valueOfOperator(nowOperator).calculate(total, num);
+        this.total = Operator.valueOfOperator(this.nowOperator).calculate(this.total, num);
     }
 
 
